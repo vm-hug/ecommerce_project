@@ -37,7 +37,7 @@
             <div class="wg-table table-all-user">
                 <div class="table-responsive">
                     @if (Session::has('status'))
-                    <p id="status-message" class="alert alert-success">{{Session::get('status')}}</p>
+                        <p id="status-message" class="alert alert-success">{{Session::get('status')}}</p>
                     @endif
                     <table class="table table-striped table-bordered">
                         <thead>
