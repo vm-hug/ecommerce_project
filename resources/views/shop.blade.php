@@ -1,5 +1,24 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .brand-list li , .category-list li {
+            line-height: 40px ;
+        }
+        .brand-list li .chk-brand , .category-list li .chk-category{
+            width: 1rem; 
+            height: 1rem;
+            color: #e4e4e4;
+            border: 0.125rem solid currentColor;
+            border-radius: 0;
+            margin-right: 0.75rem;
+        }
+
+        .filled-heart {
+            color: orange;
+        }
+
+        
+    </style>
 <main class="pt-90">
     <section class="shop-main container d-flex pt-4 pt-xl-5">
         <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
@@ -33,8 +52,9 @@
                                 @foreach ($categories as $category)
                                 <li class="list-item">
                                     <span class="menu-link py-1">
-                                        <input type="checkbox" class="chk-category" name="categories" value="{{$category->id}}"
-                                        @if (in_array($category->id , explode(',' , $f_categories))) checked="checked" @endif>
+                                        <input type="checkbox" class="chk-category" name="categories"
+                                            value="{{$category->id}}" @if (in_array($category->id , explode(',' ,
+                                        $f_categories))) checked="checked" @endif>
                                         {{$category->name}}
                                     </span>
                                     <span class="text-right float-end">
@@ -140,16 +160,17 @@
                         <div class="search-field multi-select accordion-body px-0 pb-0">
                             <ul class="list list-inline mb-0 brand-list">
                                 @foreach ($brands as $brand)
-                                    <li class="list-item">
-                                        <span class="menu-link py-1">
-                                            <input type="checkbox" name="brands" value="{{$brand->id}}" id="" class="chk-brand"
-                                            @if (in_array($brand->id , explode(',' , $f_brands))) checked="checked" @endif>
-                                            {{$brand->name}}
-                                        </span>
-                                        <span class="text-right float-end">
-                                            {{$brand->products->count()}}
-                                        </span>
-                                    </li>
+                                <li class="list-item">
+                                    <span class="menu-link py-1">
+                                        <input type="checkbox" name="brands" value="{{$brand->id}}" id=""
+                                            class="chk-brand" @if (in_array($brand->id , explode(',' , $f_brands)))
+                                        checked="checked" @endif>
+                                        {{$brand->name}}
+                                    </span>
+                                    <span class="text-right float-end">
+                                        {{$brand->products->count()}}
+                                    </span>
+                                </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -177,8 +198,8 @@
                     <div id="accordion-filter-price" class="accordion-collapse collapse show border-0"
                         aria-labelledby="accordion-heading-price" data-bs-parent="#price-filters">
                         <input class="price-range-slider" type="text" name="price_range" value="" data-slider-min="1"
-                            data-slider-max="500" data-slider-step="5" data-slider-value="[{{$min_price}},{{$max_price}}]"
-                            data-currency="$" />
+                            data-slider-max="500" data-slider-step="5"
+                            data-slider-value="[{{$min_price}},{{$max_price}}]" data-currency="$" />
                         <div class="price-range__info d-flex align-items-center mt-2">
                             <div class="me-auto">
                                 <span class="text-secondary">Min Price: </span>
@@ -298,19 +319,22 @@
                     <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">The Shop</a>
                 </div>
 
-                <div class="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
-                    <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" aria-label="Page Size" id="pagesize" name="pagesize" style="margin-right: 20px">
-                        <option value="12" {{$size == 12 ? 'selected' : ""}}>Show</option>
+                <div
+                    class="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
+                    <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
+                        aria-label="Page Size" id="pagesize" name="pagesize" style="margin-right: 20px">
+                        <option value="12" {{$size==12 ? 'selected' : "" }}>Show</option>
                         <option value="24" {{$size==24 ? 'selected' : "" }}>24</option>
                         <option value="48" {{$size==48 ? 'selected' : "" }}>48</option>
                         <option value="102" {{$size==102 ? 'selected' : "" }}>102</option>
                     </select>
-                    <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" aria-label="Sort Items" name="orderby" id="orderby">
-                        <option value="-1" {{$order == -1 ? "selected" : ""}}>Default</option>
-                        <option value="1" {{$order == 1 ? "selected" : ""}}>Date, New To Old</option>
-                        <option value="2" {{$order == 2 ? "selected" : ""}}>Date, Old To New</option>
-                        <option value="3" {{$order == 3 ? "selected" : ""}}>Price, Low To High</option>
-                        <option value="4" {{$order == 4 ? "selected" : ""}}>Price, High To Low</option>
+                    <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
+                        aria-label="Sort Items" name="orderby" id="orderby">
+                        <option value="-1" {{$order==-1 ? "selected" : "" }}>Default</option>
+                        <option value="1" {{$order==1 ? "selected" : "" }}>Date, New To Old</option>
+                        <option value="2" {{$order==2 ? "selected" : "" }}>Date, Old To New</option>
+                        <option value="3" {{$order==3 ? "selected" : "" }}>Price, Low To High</option>
+                        <option value="4" {{$order==4 ? "selected" : "" }}>Price, High To Low</option>
                     </select>
 
                     <div class="shop-asc__seprator mx-3 bg-light d-none d-md-block order-md-0"></div>
@@ -348,14 +372,14 @@
                                 data-settings='{"resizeObserver": true}'>
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <a href="{{route('shop.product.details' , ['product_slug'=>$product->slug])}}"><img loading="lazy"
-                                                src="{{asset('uploads/products/'.$product->image)}}" width="330"
-                                                height="400" alt="{{$product->name}}" class="pc__img"></a>
+                                        <a href="{{route('shop.product.details' , ['product_slug'=>$product->slug])}}"><img
+                                                loading="lazy" src="{{asset('uploads/products/'.$product->image)}}"
+                                                width="330" height="400" alt="{{$product->name}}" class="pc__img"></a>
                                     </div>
                                     <div class="swiper-slide">
                                         @foreach (explode("," , $product->images) as $gimg)
-                                        <a href="{{route('shop.product.details' , ['product_slug'=>$product->slug])}}"><img loading="lazy"
-                                                src="{{asset('uploads/products/'.$gimg)}}" width="330"
+                                        <a href="{{route('shop.product.details' , ['product_slug'=>$product->slug])}}"><img
+                                                loading="lazy" src="{{asset('uploads/products/'.$gimg)}}" width="330"
                                                 height="400" alt="{{$product->name}}" class="pc__img"></a>
                                         @endforeach
                                     </div>
@@ -370,16 +394,20 @@
                                     </svg></span>
                             </div>
                             @if (Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
-                                <a href="{{route('cart.index')}}" class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium btn-warning mb-3">Go to Cart</a>
+                            <a href="{{route('cart.index')}}"
+                                class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium btn-warning mb-3">Go
+                                to Cart</a>
                             @else
                             <form name="addtocart-form" method="post" action="{{route('cart.add')}}">
                                 @csrf
                                 <input type="hidden" name="id" value="{{$product->id}}">
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="name" value="{{$product->name}}">
-                                <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
-                                <button
-                                    type="submit" class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium" data-aside="cartDrawer" title="Add To Cart">Add To Cart
+                                <input type="hidden" name="price"
+                                    value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+                                <button type="submit"
+                                    class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium"
+                                    data-aside="cartDrawer" title="Add To Cart">Add To Cart
                                 </button>
                             </form>
                             @endif
@@ -387,7 +415,9 @@
 
                         <div class="pc__info position-relative">
                             <p class="pc__category">{{$product->category->name}}</p>
-                            <h6 class="pc__title"><a href="{{route('shop.product.details' , ['product_slug'=>$product->slug])}}">{{$product->name}}</a></h6>
+                            <h6 class="pc__title"><a
+                                    href="{{route('shop.product.details' , ['product_slug'=>$product->slug])}}">{{$product->name}}</a>
+                            </h6>
                             <div class="product-card__price d-flex">
                                 <span class="money price">
                                     @if ($product->sale_price)
@@ -418,14 +448,37 @@
                                 <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
                             </div>
 
-                            <button
-                                class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                                title="Add To Wishlist">
-                                <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#icon_heart" />
-                                </svg>
-                            </button>
+                            @if (Cart::instance('wishlist')->content()->where('id' , $product->id)->count() > 0)
+                            <form action="{{route('wishlist.item.remove',['rowId'=>Cart::instance('wishlist')->content()->where('id' , $product->id)->first()->rowId])}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button
+                                    class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist filled-heart"
+                                    title="Remove Wishlist">
+                                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#icon_heart" />
+                                    </svg>
+                                </button>
+                            </form>
+                            @else
+                            <form action="{{route('wishlist.add')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$product->id}}">
+                                <input type="hidden" name="name" value="{{$product->name}}">
+                                <input type="hidden" name="price"
+                                    value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button
+                                    class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
+                                    title="Add To Wishlist">
+                                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#icon_heart" />
+                                    </svg>
+                                </button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -439,20 +492,20 @@
         </div>
     </section>
 </main>
-    <form action="{{route('shop.index')}}" method="GET" id="frmfilter">
-        <input type="hidden" name="page" value="{{$products->currentPage()}}">
-        <input type="hidden" name="size" id="size" value="{{$size}}">
-        <input type="hidden" name="order" id="order" value="{{$order}}">
-        <input type="hidden" name="brands" id="hdnBrands">
-        <input type="hidden" name="categories" id="hdnCategories">
-        <input type="hidden" name="min" id="hdnMinPrice" value="{{$min_price}}">
-        <input type="hidden" name="max" id="hdnMaxPrice" value="{{$max_price}}">
-    </form>
+<form action="{{route('shop.index')}}" method="GET" id="frmfilter">
+    <input type="hidden" name="page" value="{{$products->currentPage()}}">
+    <input type="hidden" name="size" id="size" value="{{$size}}">
+    <input type="hidden" name="order" id="order" value="{{$order}}">
+    <input type="hidden" name="brands" id="hdnBrands">
+    <input type="hidden" name="categories" id="hdnCategories">
+    <input type="hidden" name="min" id="hdnMinPrice" value="{{$min_price}}">
+    <input type="hidden" name="max" id="hdnMaxPrice" value="{{$max_price}}">
+</form>
 @endsection
 
 @push('scripts')
-    <script>
-        $(function() {
+<script>
+    $(function() {
             $('#pagesize').on('change' , function(){
                 $('#size').val($("#pagesize option:selected").val());
                 $('#frmfilter').submit();
@@ -500,5 +553,5 @@
                 }, 2000);
             })
         })
-    </script>
+</script>
 @endpush
