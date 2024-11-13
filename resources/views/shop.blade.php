@@ -53,8 +53,7 @@
                                 <li class="list-item">
                                     <span class="menu-link py-1">
                                         <input type="checkbox" class="chk-category" name="categories"
-                                            value="{{$category->id}}" @if (in_array($category->id , explode(',' ,
-                                        $f_categories))) checked="checked" @endif>
+                                            value="{{$category->id}}" @if (in_array($category->id , explode(',' , $f_categories))) checked="checked" @endif>
                                         {{$category->name}}
                                     </span>
                                     <span class="text-right float-end">
@@ -421,9 +420,9 @@
                             <div class="product-card__price d-flex">
                                 <span class="money price">
                                     @if ($product->sale_price)
-                                    <s>${{$product->regular_price}} </s> ${{$product->sale_price}}
+                                        <s>${{$product->regular_price}} </s> ${{$product->sale_price}}
                                     @else
-                                    {{$product->regular_price}}
+                                        {{$product->regular_price}}
                                     @endif
                                 </span>
                             </div>

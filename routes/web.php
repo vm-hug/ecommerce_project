@@ -14,6 +14,11 @@ use Surfsidemedia\Shoppingcart\Facades\Cart;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/contact-us' , [HomeController::class, 'contact'])->name('home.contact');
+Route::post('/contact/store]', [HomeController::class, 'contact_store'])->name('home.contact.store');
+Route::get('search', [HomeController::class, 'search'])->name('home.search');
+
+
 Route::get('/shop',[ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class, 'product_details'])->name('shop.product.details');
 
@@ -23,7 +28,6 @@ Route::put('/cart/increase-quantity/{rowId}', [CartController::class, 'increase_
 Route::put('/cart/decrease-quantity/{rowId}', [CartController::class, 'decrease_cart_quantity'])->name('cart.qty.decrease');
 Route::delete('/cart/remove/{rowId}', [CartController::class, 'remove_item'])->name('cart.item.remove');
 Route::delete('/cart/empty', [CartController::class, 'empty_cart'])->name('cart.empty');
-
 Route::post('/cart/apply-coupon', [CartController::class, 'apply_oupon_code' ])->name('cart.coupon.apply');
 Route::delete('/cart/remove-coupon', [CartController::class, 'remove_coupon_code'])->name('cart.coupon.remove');
 
@@ -37,6 +41,7 @@ Route::get('/checkout' , [CartController::class , 'checkout'])->name('cart.check
 Route::post('/place-an-order' , [CartController::class, 'place_an_order'])->name('cart.place.an.order');
 Route::get('/order-confirmation' , [CartController::class, 'order_confirmation'])->name('cart.order.confirmation');
 
+
 // Của user hoặc customer
 Route::middleware(['auth'])->group(function () {
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
@@ -48,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', AuthAdmin::class])->group(function () {
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/contacts',[AdminController::class, 'contacts'])->name('admin.contacts');
+    Route::delete('/admin/contact/{id}/delete' , [AdminController::class, 'contact_delete'])->name('admin.contact.delete');
 
     Route::get('/admin/brands', [AdminController::class, 'brands'])->name('admin.brands');
     Route::get('/admin/brand/add', [AdminController::class, 'add_brand'])->name('admin.brand.add');
@@ -80,5 +87,14 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
     Route::get('/admin/order' , [AdminController::class , 'orders'])->name('admin.orders');
     Route::get('/admin/order/{order_id}/details' , [AdminController::class , 'order_details'])->name('admin.orders.details');
     Route::put('/admin/order/update-status' , [AdminController::class , 'update_order_status'])->name('admin.order.status.update');
+
+    Route::get('/admin/slides' , [AdminController::class, 'slides'])->name('admin.slides');
+    Route::get('/admin/slide/add' , [AdminController::class, 'slide_add'])->name('admin.slide.add');
+    Route::post('/admin/slide/store', [AdminController::class, 'slide_store'])->name('admin.slide.store');
+    Route::get('/admin/slide/{id}/edit', [AdminController::class, 'slide_edit'])->name('admin.slide.edit');
+    Route::put('/admin/slide/update', [AdminController::class, 'slide_update'])->name('admin.slide.update');
+    Route::delete('/admin/slide/{id}/delete', [AdminController::class, 'slide_delete'])->name('admin.slide.delete');
+
+    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
 });
 
